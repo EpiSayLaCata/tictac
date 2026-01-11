@@ -1,4 +1,4 @@
-import 'package:tictac/domain/entities/game_state.dart';
+import 'package:tictac/features/game/domain/entities/game_state.dart';
 
 class GameLocalDataSource {
   GameState _state = GameState.initial();

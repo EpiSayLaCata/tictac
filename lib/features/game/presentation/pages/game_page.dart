@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tictac/core/providers/providers.dart';
+import 'package:tictac/core/providers/theme_provider.dart';
 
-import 'package:tictac/domain/entities/game_state.dart';
-import 'package:tictac/presentation/controllers/game_controller.dart';
-import 'package:tictac/presentation/widgets/board_cell.dart';
+import 'package:tictac/features/game/domain/entities/game_state.dart';
+import 'package:tictac/features/game/presentation/widgets/board_cell.dart';
+import 'package:tictac/features/game/presentation/widgets/game_rive_overlay.dart';
 
 class GamePage extends ConsumerWidget {
   const GamePage({super.key});
@@ -11,7 +13,7 @@ class GamePage extends ConsumerWidget {
   String _title(GameState state) {
     return switch (state.result) {
       GameResult.ongoing =>
-        'Tour de ${state.currentPlayer == Player.player1 ? 'X' : 'O'}',
+        'Tour de ${state.currentPlayer == Player.player1 ? 'Player 1' : 'Player 2'}',
       GameResult.draw => 'Match nul',
       GameResult.player1Won => 'Player 1 a gagné !',
       GameResult.player2Won => 'Player 2 a gagné !',
@@ -30,6 +32,16 @@ class GamePage extends ConsumerWidget {
           IconButton(
             onPressed: controller.reset,
             icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
+            onPressed: () {
+              ref.read(themeModeProvider.notifier).toggle();
+            },
+            icon: Icon(
+              ref.watch(themeModeProvider) == ThemeMode.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
           ),
         ],
       ),
@@ -59,6 +71,7 @@ class GamePage extends ConsumerWidget {
               ),
             ),
           ),
+          const GameRiveOverlay(),
         ],
       ),
     );

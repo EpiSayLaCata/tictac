@@ -1,4 +1,4 @@
-import 'package:tictac/domain/entities/game_state.dart';
+import 'package:tictac/features/game/domain/entities/game_state.dart';
 
 class WinnerCheck {
   const WinnerCheck({required this.result, required this.line});
@@ -25,7 +25,9 @@ class WinnerChecker {
       final c = board[line[2]];
       if (a != null && a == b && b == c) {
         return WinnerCheck(
-          result: a == Player.player1 ? GameResult.player1Won : GameResult.player2Won,
+          result: a == Player.player1
+              ? GameResult.player1Won
+              : GameResult.player2Won,
           line: line,
         );
       }

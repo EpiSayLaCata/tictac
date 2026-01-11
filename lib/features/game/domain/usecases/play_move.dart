@@ -1,6 +1,6 @@
-import 'package:tictac/domain/entities/game_state.dart';
-import 'package:tictac/domain/repositories/game_repository.dart';
-import 'package:tictac/domain/services/winner_checker.dart';
+import 'package:tictac/features/game/domain/entities/game_state.dart';
+import 'package:tictac/features/game/domain/repositories/game_repository.dart';
+import 'package:tictac/features/game/domain/services/winner_checker.dart';
 
 class PlayMove {
   PlayMove(this._repo, this._winnerChecker);
@@ -19,10 +19,16 @@ class PlayMove {
     final check = _winnerChecker.evaluate(newBoard);
 
     final nextState = (check.result != GameResult.ongoing)
-        ? state.copyWith(board: newBoard, result: check.result, winningLine: check.line)
+        ? state.copyWith(
+            board: newBoard,
+            result: check.result,
+            winningLine: check.line,
+          )
         : state.copyWith(
             board: newBoard,
-            currentPlayer: state.currentPlayer == Player.player1 ? Player.player2 : Player.player1,
+            currentPlayer: state.currentPlayer == Player.player1
+                ? Player.player2
+                : Player.player1,
             result: GameResult.ongoing,
             winningLine: const [],
           );

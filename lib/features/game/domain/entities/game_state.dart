@@ -1,4 +1,5 @@
 enum Player { player1, player2 }
+
 enum GameResult { ongoing, draw, player1Won, player2Won }
 
 class GameState {
@@ -15,11 +16,11 @@ class GameState {
   final List<int> winningLine;
 
   factory GameState.initial() => const GameState(
-        board: [null, null, null, null, null, null, null, null, null],
-        currentPlayer: Player.player1,
-        result: GameResult.ongoing,
-        winningLine: <int>[],
-      );
+    board: [null, null, null, null, null, null, null, null, null],
+    currentPlayer: Player.player1,
+    result: GameResult.ongoing,
+    winningLine: <int>[],
+  );
 
   GameState copyWith({
     List<Player?>? board,
