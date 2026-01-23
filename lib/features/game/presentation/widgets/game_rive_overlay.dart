@@ -53,7 +53,12 @@ class _GameRiveOverlayState extends ConsumerState<GameRiveOverlay> {
   Widget build(BuildContext context) {
     final result = ref.watch(gameControllerProvider.select((s) => s.result));
 
-    if (result == GameResult.ongoing) return const SizedBox.shrink();
+    final isWin =
+        result == GameResult.player1Won || result == GameResult.player2Won;
+
+    if (!isWin) {
+      return const SizedBox.shrink();
+    }
 
     if (!_isInitialized) {
       return const Center(child: CircularProgressIndicator());
